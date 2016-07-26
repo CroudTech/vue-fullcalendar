@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "FullCalendar wrapper for vue",
   "main": "index.js",
+  "browserify": {
+    "transform": [
+      "vueify"
+    ]
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/CroudSupport/vue-fullcalendar/issues"
   },
-  "homepage": "https://github.com/CroudSupport/vue-fullcalendar#readme"
+  "homepage": "https://github.com/CroudSupport/vue-fullcalendar#readme",
+  "dependencies": {
+    "fullcalendar": "^2.9.0"
+  }
 }
