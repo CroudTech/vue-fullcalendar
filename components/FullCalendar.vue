@@ -13,7 +13,11 @@
                 },
             },
         },
-
+        data() {
+            return {
+                ready: false,
+            }
+        },
         ready() {
             const cal = $(this.$els.calendar),
                 self = this
@@ -31,6 +35,10 @@
                 aspectRatio: 2,
                 timeFormat: 'HH:mm',
                 events: self.events,
+                eventAfterAllRender() {
+                    self.ready = true
+                },
+
                 eventRender(event, element) {
                     self.events = cal.fullCalendar('clientEvents')
                 },
@@ -40,19 +48,39 @@
                 },
 
                 eventClick(event) {
-                    //cal.fullCalendar('removeEvents', event._id)
                     self.$dispatch('event-selected', event)
                 },
 
+                eventDrop(event) {
+                    self.$dispatch('event-drop', event)
+                },
+
+                eventResize(event) {
+                    self.$dispatch('event-resize', event)
+                },
+
                 select(start, end, jsEvent) {
-                    cal.fullCalendar('renderEvent', {
-                        title: 'Available',
+                    self.$dispatch('event-created', {
                         start,
                         end,
-                    }, true)
+                    })
                 },
             })
-        }
+        },
+
+        watch: {
+            events: {
+                deep: true,
+                handler(val) {
+                    $(this.$els.calendar).fullCalendar('rerenderEvents')
+                },
+            }
+        },
+
+        events: {
+            'remove-event'(event) {
+                $(this.$els.calendar).fullCalendar('removeEvents', event._id)
+            },
+        },
     }
 </script>
-
