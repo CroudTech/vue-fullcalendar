@@ -12,32 +12,55 @@
                     return []
                 },
             },
+
+            editable: {
+                default() {
+                    return true
+                },
+            },
+
+            selectable: {
+                default() {
+                    return true
+                },
+            },
+
+            selectHelper: {
+                default() {
+                    return true
+                },
+            },
+
+            header: {
+                default() {
+                    return {
+                        left:   'prev,next today',
+                        center: 'title',
+                        right:  'month,agendaWeek,agendaDay'
+                    }
+                },
+            },
+
+            defaultView: {
+                default() {
+                    return 'agendaWeek'
+                },
+            },
         },
-        data() {
-            return {
-                ready: false,
-            }
-        },
+
         ready() {
             const cal = $(this.$els.calendar),
                 self = this
 
             $(this.$els.calendar).fullCalendar({
-                header: {
-                    left:   'prev,next today',
-                    center: 'title',
-                    right:  'month,agendaWeek,agendaDay'
-                },
-                defaultView: 'agendaWeek',
-                editable: true,
-                selectable: true,
-                selectHelper: true,
+                header: this.header,
+                defaultView: this.defaultView,
+                editable: this.editable,
+                selectable: this.selectable,
+                selectHelper: this.selectHelper,
                 aspectRatio: 2,
                 timeFormat: 'HH:mm',
                 events: self.events,
-                eventAfterAllRender() {
-                    self.ready = true
-                },
 
                 eventRender(event, element) {
                     self.events = cal.fullCalendar('clientEvents')
@@ -80,6 +103,16 @@
         events: {
             'remove-event'(event) {
                 $(this.$els.calendar).fullCalendar('removeEvents', event._id)
+            },
+            'rerender-events'(event) {
+                $(this.$els.calendar).fullCalendar('rerenderEvents')
+            },
+            'render-event'(event) {
+                $(this.$els.calendar).fullCalendar('renderEvent', event)
+            },
+            'reload-events'() {
+                $(this.$els.calendar).fullCalendar('removeEvents')
+                $(this.$els.calendar).fullCalendar('addEventSource', this.events)
             },
         },
     }
