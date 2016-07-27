@@ -1,5 +1,5 @@
 {
-  "name": "vue-fullcalendar",
+  "name": "vue-full-calendar",
   "version": "0.0.1",
   "description": "FullCalendar wrapper for vue",
   "main": "index.js",
