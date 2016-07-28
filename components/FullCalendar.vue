@@ -63,11 +63,15 @@
                 events: self.events,
 
                 eventRender(event, element) {
-                    self.events = cal.fullCalendar('clientEvents')
+                    if (typeof self.events !== 'function') {
+                        self.events = cal.fullCalendar('clientEvents')
+                    }
                 },
 
                 eventDestroy(event) {
-                    self.events = cal.fullCalendar('clientEvents')
+                    if (typeof self.events !== 'function') {
+                        self.events = cal.fullCalendar('clientEvents')
+                    }
                 },
 
                 eventClick(event) {
@@ -86,6 +90,7 @@
                     self.$dispatch('event-created', {
                         start,
                         end,
+                        allDay: !start.hasTime() && !end.hasTime(),
                     })
                 },
             })
@@ -106,6 +111,9 @@
             },
             'rerender-events'(event) {
                 $(this.$els.calendar).fullCalendar('rerenderEvents')
+            },
+            'refetch-events'(event) {
+                $(this.$els.calendar).fullCalendar('refetchEvents')
             },
             'render-event'(event) {
                 $(this.$els.calendar).fullCalendar('renderEvent', event)
