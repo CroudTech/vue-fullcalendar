@@ -46,7 +46,7 @@ You can pass an array of fullclendar objects through the props
 ```
 More event options can be found at http://fullcalendar.io/docs/event_data/Event_Object/
 
-## Event Sources
+## Using a JSON Feed
 
 ```html
 <full-calendar :event-sources="eventSources"></full-calendar>
@@ -80,4 +80,16 @@ More event options can be found at http://fullcalendar.io/docs/event_data/Event_
 </script>
 ```
 
+## Events and Hooks
 
+### Dispatched
+- __event-selected(event)__ - Triggered on eventClick()
+- __event-drop(event)__ - Triggered on eventDrop()
+- __event-resize(event)__ - Triggered on eventResize() 
+- __event-created(event)__ - Triggered on select()
+
+### Listens on
+- __render-event(event)__ - Adds a new event to calendar
+- __remove-event(event)__ - Removes event from calendar
+- __rerender-events()__ - Rerenders events to reflect local changes
+- __refetch-events()__ - Makes another JSON call to event sources 
