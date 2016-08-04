@@ -80,6 +80,15 @@ More event options can be found at http://fullcalendar.io/docs/event_data/Event_
 </script>
 ```
 
+## Further Props
+You can edit the look and feel of fullcalendar by passing through extra props. These all have sensible defaults
+
+- __header__ - [obj] - [docs](http://fullcalendar.io/docs/display/header/)
+- __defaultView__ - ['agendaWeek'] - [docs](http://fullcalendar.io/docs/views/defaultView/)
+- __editable__ - [true] - [docs](http://fullcalendar.io/docs/event_ui/editable/)
+- __selectable__ - [true] -  [docs](http://fullcalendar.io/docs/selection/selectable/)
+- __selectHelper__ - [true] - [docs](http://fullcalendar.io/docs/selection/selectHelper/)
+
 ## Events and Hooks
 
 ### Dispatched
