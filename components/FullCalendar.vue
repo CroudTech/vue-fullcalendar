@@ -13,6 +13,12 @@
                 },
             },
 
+            eventSources: {
+                default() {
+                    return []
+                },
+            },
+
             editable: {
                 default() {
                     return true
@@ -46,6 +52,12 @@
                     return 'agendaWeek'
                 },
             },
+
+            sync: {
+                default() {
+                    return false
+                }
+            },
         },
 
         ready() {
@@ -61,15 +73,16 @@
                 aspectRatio: 2,
                 timeFormat: 'HH:mm',
                 events: self.events,
+                eventSources: self.eventSources,
 
                 eventRender(event, element) {
-                    if (typeof self.events !== 'function') {
+                    if (this.sync) {
                         self.events = cal.fullCalendar('clientEvents')
                     }
                 },
 
                 eventDestroy(event) {
-                    if (typeof self.events !== 'function') {
+                    if (this.sync) {
                         self.events = cal.fullCalendar('clientEvents')
                     }
                 },
@@ -121,6 +134,12 @@
             'reload-events'() {
                 $(this.$els.calendar).fullCalendar('removeEvents')
                 $(this.$els.calendar).fullCalendar('addEventSource', this.events)
+            },
+            'rebuild-sources'() {
+                $(this.$els.calendar).fullCalendar('removeEvents')
+                this.eventSources.map(event => {
+                    $(this.$els.calendar).fullCalendar('addEventSource', event)
+                })
             },
         },
     }
