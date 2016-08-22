@@ -11,6 +11,13 @@ and use in your project
 ```js
 Vue.use(require('vue-full-calendar'))
 ```
+### jQuery
+
+Please note that fullcalendar depends on jQuery, so it will need to be included in your project for this vue plugin to work
+
+```js
+window.jQuery = window.$ = require('jquery')
+```
 
 ## Basic Usage
 
