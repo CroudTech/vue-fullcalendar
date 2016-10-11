@@ -120,7 +120,7 @@
 
         events: {
             'remove-event'(event) {
-                $(this.$els.calendar).fullCalendar('removeEvents', event._id)
+                $(this.$els.calendar).fullCalendar('removeEvents', event.id)
             },
             'rerender-events'(event) {
                 $(this.$els.calendar).fullCalendar('rerenderEvents')
