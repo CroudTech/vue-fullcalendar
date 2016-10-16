@@ -113,7 +113,7 @@
             events: {
                 deep: true,
                 handler(val) {
-                    $(this.$refs.calendar).fullCalendar('rerenderEvents')
+                    this.$emit('reload-events');
                 },
             }
         },
