@@ -1,5 +1,5 @@
 <template>
-    <div v-el:calendar id="calendar"></div>
+    <div ref:"calendar" id="calendar"></div>
 </template>
 
 <script>
@@ -60,11 +60,11 @@
             },
         },
 
-        ready() {
-            const cal = $(this.$els.calendar),
+        mounted() {
+            const cal = $(this.$el),
                 self = this
 
-            $(this.$els.calendar).fullCalendar({
+            cal.fullCalendar({
                 header: this.header,
                 defaultView: this.defaultView,
                 editable: this.editable,
@@ -88,19 +88,19 @@
                 },
 
                 eventClick(event) {
-                    self.$dispatch('event-selected', event)
+                    $(self.$el).trigger('event-selected', event)
                 },
 
                 eventDrop(event) {
-                    self.$dispatch('event-drop', event)
+                    $(self.$el).trigger('event-drop', event)
                 },
 
                 eventResize(event) {
-                    self.$dispatch('event-resize', event)
+                    $(self.$el).trigger('event-resize', event)
                 },
 
                 select(start, end, jsEvent) {
-                    self.$dispatch('event-created', {
+                    $(self.$el).trigger('event-created', {
                         start,
                         end,
                         allDay: !start.hasTime() && !end.hasTime(),
@@ -113,34 +113,36 @@
             events: {
                 deep: true,
                 handler(val) {
-                    $(this.$els.calendar).fullCalendar('rerenderEvents')
+                    $(this.$el).fullCalendar('rerenderEvents')
                 },
             }
         },
 
         events: {
             'remove-event'(event) {
-                $(this.$els.calendar).fullCalendar('removeEvents', event.id)
+                $(this.$el).fullCalendar('removeEvents', event.id)
             },
             'rerender-events'(event) {
-                $(this.$els.calendar).fullCalendar('rerenderEvents')
+                $(this.$el).fullCalendar('rerenderEvents')
             },
             'refetch-events'(event) {
-                $(this.$els.calendar).fullCalendar('refetchEvents')
+                $(this.$el).fullCalendar('refetchEvents')
             },
             'render-event'(event) {
-                $(this.$els.calendar).fullCalendar('renderEvent', event)
+                $(this.$el).fullCalendar('renderEvent', event)
             },
             'reload-events'() {
-                $(this.$els.calendar).fullCalendar('removeEvents')
-                $(this.$els.calendar).fullCalendar('addEventSource', this.events)
+                $(this.$el).fullCalendar('removeEvents')
+                $(this.$el).fullCalendar('addEventSource', this.events)
             },
             'rebuild-sources'() {
-                $(this.$els.calendar).fullCalendar('removeEvents')
+                $(this.$el).fullCalendar('removeEvents')
                 this.eventSources.map(event => {
-                    $(this.$els.calendar).fullCalendar('addEventSource', event)
+                    $(this.$el).fullCalendar('addEventSource', event)
                 })
             },
         },
     }
 </script>
+
+<style src="../../fullcalendar/dist/fullcalendar.css"></style>
