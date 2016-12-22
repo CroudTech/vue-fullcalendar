@@ -1,9 +1,12 @@
 # vue-fullcalendar
 
 ## Installation
-
 ```
 npm install --save vue-full-calendar
+```
+Or for Vue 1.x users
+```
+npm install --save vue-full-calendar@0.0.3
 ```
 
 and use in your project
