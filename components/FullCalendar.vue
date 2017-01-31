@@ -58,6 +58,12 @@
                     return false
                 }
             },
+
+            locale: {
+                default() {
+                    return 'en'
+                }
+            },
         },
 
         mounted() {
@@ -74,6 +80,7 @@
                 timeFormat: 'HH:mm',
                 events: self.events,
                 eventSources: self.eventSources,
+                lang: this.locale,
 
                 eventRender(event, element) {
                     if (this.sync) {
