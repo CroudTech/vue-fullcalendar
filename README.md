@@ -102,7 +102,7 @@ You can edit the look and feel of fullcalendar by passing through extra props. T
 - __editable__ - [true] - [docs](http://fullcalendar.io/docs/event_ui/editable/)
 - __selectable__ - [true] -  [docs](http://fullcalendar.io/docs/selection/selectable/)
 - __selectHelper__ - [true] - [docs](http://fullcalendar.io/docs/selection/selectHelper/)
-- __config__ - [true] - Pass through your own custom config
+- __config__ - [true] - Pass your own custom config straight through to fullcalendar
 
 ## Events and Hooks
 
