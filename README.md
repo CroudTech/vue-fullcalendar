@@ -22,6 +22,10 @@ Please note that fullcalendar depends on jQuery, so it will need to be included 
 window.jQuery = window.$ = require('jquery')
 ```
 
+## Example App
+I have created a simple Vue 2 webpack application to as an example/playground 
+https://github.com/BrockReece/vue-fullcalendar-example
+
 ## Basic Usage
 
 You can pass an array of fullclendar objects through the props
@@ -98,17 +102,40 @@ You can edit the look and feel of fullcalendar by passing through extra props. T
 - __editable__ - [true] - [docs](http://fullcalendar.io/docs/event_ui/editable/)
 - __selectable__ - [true] -  [docs](http://fullcalendar.io/docs/selection/selectable/)
 - __selectHelper__ - [true] - [docs](http://fullcalendar.io/docs/selection/selectHelper/)
+- __config__ - [true] - Pass through your own custom config
 
 ## Events and Hooks
 
-### Dispatched
+### Emitted
 - __event-selected(event)__ - Triggered on eventClick()
 - __event-drop(event)__ - Triggered on eventDrop()
 - __event-resize(event)__ - Triggered on eventResize() 
 - __event-created(event)__ - Triggered on select()
 
+You can listen for these events using the following markup
+
+```html
+<full-calendar :event-sources="eventSources" @event-selected="eventSelected"></full-calendar>
+```
 ### Listens on
 - __render-event(event)__ - Adds a new event to calendar
 - __remove-event(event)__ - Removes event from calendar
 - __rerender-events()__ - Rerenders events to reflect local changes
-- __refetch-events()__ - Makes another JSON call to event sources 
+- __refetch-events()__ - Makes another JSON call to event sources
+- __reload-events()__ - Removes all events and adds all events in this.events
+
+You can trigger these events in the parent component like so...
+
+```html
+<full-calendar ref="calendar" :event-sources="eventSources"></full-calendar>
+...
+<script>
+...
+  methods: {
+    refreshEvents() {
+      this.$refs.calendar.$emit('refetch-events')
+    },
+  }
+...
+</script>
+```
