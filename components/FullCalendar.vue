@@ -1,9 +1,10 @@
 <template>
-    <div ref:"calendar" id="calendar"></div>
+    <div ref="calendar" id="calendar"></div>
 </template>
 
 <script>
-    require('fullcalendar')
+    import _ from 'lodash'
+    import 'fullcalendar'
 
     export default {
         props: {
@@ -58,76 +59,77 @@
                     return false
                 }
             },
+
+            config: {
+                type: Object,
+                default() {
+                    return {}
+                },
+            },
+        },
+
+        computed: {
+            defaultConfig() {
+                const self = this
+                return {
+                    header: this.header,
+                    defaultView: this.defaultView,
+                    editable: this.editable,
+                    selectable: this.selectable,
+                    selectHelper: this.selectHelper,
+                    aspectRatio: 2,
+                    timeFormat: 'HH:mm',
+                    events: this.events,
+                    eventSources: this.eventSources,
+
+                    eventRender(event, element) {
+                        if (this.sync) {
+                            self.events = cal.fullCalendar('clientEvents')
+                        }
+                    },
+
+                    eventDestroy(event) {
+                        if (this.sync) {
+                            self.events = cal.fullCalendar('clientEvents')
+                        }
+                    },
+
+                    eventClick(event) {
+                        self.$emit('event-selected', event)
+                    },
+
+                    eventDrop(event) {
+                        self.$emit('event-drop', event)
+                    },
+
+                    eventResize(event) {
+                        self.$emit('event-resize', event)
+                    },
+
+                    select(start, end, jsEvent) {
+                        self.$emit('event-created', {
+                            start,
+                            end,
+                            allDay: !start.hasTime() && !end.hasTime(),
+                        })
+                    },
+                }
+            },
         },
 
         mounted() {
             const cal = $(this.$el),
                 self = this
 
-            cal.fullCalendar({
-                header: this.header,
-                defaultView: this.defaultView,
-                editable: this.editable,
-                selectable: this.selectable,
-                selectHelper: this.selectHelper,
-                aspectRatio: 2,
-                timeFormat: 'HH:mm',
-                events: self.events,
-                eventSources: self.eventSources,
-
-                eventRender(event, element) {
-                    if (this.sync) {
-                        self.events = cal.fullCalendar('clientEvents')
-                    }
-                },
-
-                eventDestroy(event) {
-                    if (this.sync) {
-                        self.events = cal.fullCalendar('clientEvents')
-                    }
-                },
-
-                eventClick(event) {
-                    self.$emit('event-selected', event)
-                },
-
-                eventDrop(event) {
-                    self.$emit('event-drop', event)
-                },
-
-                eventResize(event) {
-                    self.$emit('event-resize', event)
-                },
-
-                select(start, end, jsEvent) {
-                    self.$emit('event-created', {
-                        start,
-                        end,
-                        allDay: !start.hasTime() && !end.hasTime(),
-                    })
-                },
-            })
-        },
-
-        watch: {
-            events: {
-                deep: true,
-                handler(val) {
-                    $(this.$el).fullCalendar('rerenderEvents')
-                },
-            }
-        },
-
-        created() {
             this.$on('remove-event', (event) => {
                 $(this.$el).fullCalendar('removeEvents', event.id)
             })
 
-            this.$on('rerender-events', (event) => {
+            this.$on('rerender-events', () => {
                 $(this.$el).fullCalendar('rerenderEvents')
             })
 
-            this.$on('refetch-events', (event) => {
+            this.$on('refetch-events', () => {
                 $(this.$el).fullCalendar('refetchEvents')
             })
 
@@ -146,6 +148,26 @@
                     $(this.$el).fullCalendar('addEventSource', event)
                 })
             })
+
+            cal.fullCalendar(_.defaultsDeep(this.config, this.defaultConfig))
+        },
+
+        watch: {
+            events: {
+                deep: true,
+                handler(val) {
+                    $(this.$el).fullCalendar('rerenderEvents')
+                },
+            }
+        },
+
+        beforeDestroy() {
+            this.$off('remove-event')
+            this.$off('rerender-events')
+            this.$off('refetch-events')
+            this.$off('render-event')
+            this.$off('reload-events')
+            this.$off('rebuild-sources')
         },
     }
 </script>
