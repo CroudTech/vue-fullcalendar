@@ -58,6 +58,18 @@
                     return false
                 }
             },
+
+            locale: {
+                default() {
+                    return 'en'
+                }
+            },
+
+            timezone: {
+                default() {
+                    return false
+                }
+            },
         },
 
         mounted() {
@@ -74,6 +86,8 @@
                 timeFormat: 'HH:mm',
                 events: self.events,
                 eventSources: self.eventSources,
+                lang: this.locale,
+                timezone: this.timezone,
 
                 eventRender(event, element) {
                     if (this.sync) {
