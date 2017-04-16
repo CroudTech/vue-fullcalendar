@@ -158,7 +158,13 @@
                 handler(val) {
                     $(this.$el).fullCalendar('rerenderEvents')
                 },
-            }
+            },
+            eventSources: {
+                deep: true,
+                handler(val) {
+                    this.$emit('rebuild-sources')
+                },
+            },
         },
 
         beforeDestroy() {
