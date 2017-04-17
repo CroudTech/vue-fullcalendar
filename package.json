@@ -28,6 +28,6 @@
   },
   "homepage": "https://github.com/CroudSupport/vue-fullcalendar#readme",
   "dependencies": {
-    "fullcalendar": "^2.9.0"
+    "fullcalendar": "^3.3.0"
   }
 }
