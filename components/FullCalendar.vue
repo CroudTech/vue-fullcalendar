@@ -95,7 +95,7 @@
                     },
 
                     eventClick(event, jsEvent, view) {
-                        self.$emit('event-selected', {event: event, jsEvent:jsEvent, view:view})
+                        self.$emit('event-selected', event, jsEvent, view)
                     },
 
                     eventDrop(event) {
