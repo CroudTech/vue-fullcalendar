@@ -107,7 +107,7 @@ You can edit the look and feel of fullcalendar by passing through extra props. T
 ## Events and Hooks
 
 ### Emitted
-- __event-selected(event)__ - Triggered on eventClick()
+- __event-selected(event, jsEvent, view)__ - Triggered on eventClick()
 - __event-drop(event)__ - Triggered on eventDrop()
 - __event-resize(event)__ - Triggered on eventResize() 
 - __event-created(event)__ - Triggered on select()
