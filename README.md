@@ -22,7 +22,7 @@ Please note that fullcalendar depends on jQuery, so it will need to be included 
 window.jQuery = window.$ = require('jquery')
 ```
 
-##CSS
+### CSS
 As of version 2.0, we have removed the automatic import of the fullcalendar.css, you will need to explicitly import this css file in your project.
 ```html
 <style>
