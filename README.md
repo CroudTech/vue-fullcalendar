@@ -22,8 +22,16 @@ Please note that fullcalendar depends on jQuery, so it will need to be included 
 window.jQuery = window.$ = require('jquery')
 ```
 
+##CSS
+As of version 2.0, we have removed the automatic import of the fullcalendar.css, you will need to explicitly import this css file in your project.
+```html
+<style>
+    @import '~fullcalendar/dist/fullcalendar.css';
+</style>
+```
+
 ## Example App
-I have created a simple Vue 2 webpack application to as an example/playground 
+I have created a simple Vue 2 webpack application to as an example/playground
 https://github.com/BrockReece/vue-fullcalendar-example
 
 ## Basic Usage
@@ -109,7 +117,7 @@ You can edit the look and feel of fullcalendar by passing through extra props. T
 ### Emitted
 - __event-selected(event, jsEvent, view)__ - Triggered on eventClick()
 - __event-drop(event)__ - Triggered on eventDrop()
-- __event-resize(event)__ - Triggered on eventResize() 
+- __event-resize(event)__ - Triggered on eventResize()
 - __event-created(event)__ - Triggered on select()
 
 You can listen for these events using the following markup

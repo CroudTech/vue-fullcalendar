@@ -177,5 +177,3 @@
         },
     }
 </script>
-
-<style src="../../fullcalendar/dist/fullcalendar.css"></style>
