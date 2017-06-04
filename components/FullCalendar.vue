@@ -156,7 +156,8 @@
             events: {
                 deep: true,
                 handler(val) {
-                    $(this.$el).fullCalendar('rerenderEvents')
+                    $(this.$el).fullCalendar('removeEvents')
+                    $(this.$el).fullCalendar('addEventSource', this.events)
                 },
             },
             eventSources: {
