@@ -54,6 +54,18 @@
                 },
             },
 
+            aspectRatio: {
+                default() {
+                    return 1.35
+                },
+            },
+
+            allDaySlot: {
+                default() {
+                    return true
+                },
+            },
+
             sync: {
                 default() {
                     return false
@@ -77,7 +89,8 @@
                     editable: this.editable,
                     selectable: this.selectable,
                     selectHelper: this.selectHelper,
-                    aspectRatio: 2,
+                    aspectRatio: this.aspectRatio,
+                    allDaySlot: this.allDaySlot,
                     timeFormat: 'HH:mm',
                     events: this.events,
                     eventSources: this.eventSources,
