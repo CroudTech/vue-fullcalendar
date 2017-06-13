@@ -82,10 +82,11 @@
                     events: this.events,
                     eventSources: this.eventSources,
 
-                    eventRender(event, element) {
+                    eventRender(event, element, view) {
                         if (this.sync) {
                             self.events = cal.fullCalendar('clientEvents')
                         }
+                        self.$emit('event-render', event, element, view)
                     },
 
                     eventDestroy(event) {
