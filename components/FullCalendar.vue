@@ -106,6 +106,10 @@
                     eventResize(event) {
                         self.$emit('event-resize', event)
                     },
+                    
+                    dayClick(date, jsEvent, view){
+                      self.$emit('day-click', date, jsEvent, view)
+                    },
 
                     select(start, end, jsEvent) {
                         self.$emit('event-created', {
