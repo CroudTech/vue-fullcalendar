@@ -106,7 +106,7 @@
                     eventResize(event) {
                         self.$emit('event-resize', event)
                     },
-                    
+
                     dayClick(date, jsEvent, view){
                       self.$emit('day-click', date, jsEvent, view)
                     },
@@ -155,6 +155,12 @@
             })
 
             cal.fullCalendar(_.defaultsDeep(this.config, this.defaultConfig))
+        },
+
+        methods: {
+            fireMethod(...options) {
+                $(this.$el).fullCalendar(...options)
+            },
         },
 
         watch: {
