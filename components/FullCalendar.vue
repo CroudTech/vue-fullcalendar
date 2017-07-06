@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import _ from 'lodash'
+    import defaultsDeep from 'lodash.defaultsdeep'
     import 'fullcalendar'
 
     export default {
@@ -154,7 +154,7 @@
                 })
             })
 
-            cal.fullCalendar(_.defaultsDeep(this.config, this.defaultConfig))
+            cal.fullCalendar(defaultsDeep(this.config, this.defaultConfig))
         },
 
         methods: {
