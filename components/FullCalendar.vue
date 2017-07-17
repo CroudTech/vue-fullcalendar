@@ -82,11 +82,11 @@
                     events: this.events,
                     eventSources: this.eventSources,
 
-                    eventRender(event, element, view) {
+                    eventRender(...args) {
                         if (this.sync) {
                             self.events = cal.fullCalendar('clientEvents')
                         }
-                        self.$emit('event-render', event, element, view)
+                        self.$emit('event-render', ...args)
                     },
 
                     eventDestroy(event) {
@@ -95,20 +95,20 @@
                         }
                     },
 
-                    eventClick(event, jsEvent, view) {
-                        self.$emit('event-selected', event, jsEvent, view)
+                    eventClick(...args) {
+                        self.$emit('event-selected', ...args)
                     },
 
-                    eventDrop(event) {
-                        self.$emit('event-drop', event)
+                    eventDrop(...args) {
+                        self.$emit('event-drop', ...args)
                     },
 
-                    eventResize(event) {
-                        self.$emit('event-resize', event)
+                    eventResize(...args) {
+                        self.$emit('event-resize', ...args)
                     },
 
-                    dayClick(date, jsEvent, view){
-                      self.$emit('day-click', date, jsEvent, view)
+                    dayClick(...args){
+                        self.$emit('day-click', ...args)
                     },
 
                     select(start, end, jsEvent) {
@@ -127,7 +127,11 @@
                 self = this
 
             this.$on('remove-event', (event) => {
-                $(this.$el).fullCalendar('removeEvents', event.id)
+                if(event && event.hasOwnProperty(id)){
+                    $(this.$el).fullCalendar('removeEvents', event.id);
+                }else{
+                    $(this.$el).fullCalendar('removeEvents', event);
+                }
             })
 
             this.$on('rerender-events', () => {
