@@ -99,16 +99,16 @@
                         self.$emit('event-selected', event, jsEvent, view)
                     },
 
-                    eventDrop(event) {
-                        self.$emit('event-drop', event)
+                    eventDrop(event, delta, revertFunc, jsEvent, ui, view) {
+                        self.$emit('event-drop', event, delta, revertFunc, jsEvent, ui, view)
                     },
 
-                    eventResize(event) {
-                        self.$emit('event-resize', event)
+                    eventResize(event, delta, revertFunc, jsEvent, ui, view) {
+                        self.$emit('event-resize', event, delta, revertFunc, jsEvent, ui, view)
                     },
 
                     dayClick(date, jsEvent, view){
-                      self.$emit('day-click', date, jsEvent, view)
+                        self.$emit('day-click', date, jsEvent, view)
                     },
 
                     select(start, end, jsEvent) {
@@ -127,7 +127,11 @@
                 self = this
 
             this.$on('remove-event', (event) => {
-                $(this.$el).fullCalendar('removeEvents', event.id)
+                if(event && event.hasOwnProperty(id)){
+                    $(this.$el).fullCalendar('removeEvents', event.id);
+                }else{
+                    $(this.$el).fullCalendar('removeEvents', event);
+                }
             })
 
             this.$on('rerender-events', () => {
