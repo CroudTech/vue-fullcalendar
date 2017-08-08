@@ -127,7 +127,7 @@
                 self = this
 
             this.$on('remove-event', (event) => {
-                if(event && event.hasOwnProperty(id)){
+                if(event && event.hasOwnProperty('id')){
                     $(this.$el).fullCalendar('removeEvents', event.id);
                 }else{
                     $(this.$el).fullCalendar('removeEvents', event);
