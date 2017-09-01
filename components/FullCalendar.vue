@@ -110,10 +110,10 @@
                     dayClick(...args){
                         self.$emit('day-click', ...args)
                     },
-                    select: function select(start, end, jsEvent, view, resource) {
+                    select(start, end, jsEvent, view, resource) {
                         self.$emit('event-created', {
-                            start: start,
-                            end: end,
+                            start,
+                            end,
                             allDay: !start.hasTime() && !end.hasTime(),
                             view,
                             resource
