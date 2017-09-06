@@ -1,4 +1,4 @@
-var FullCalendar = require('./components/FullCalendar.vue');
+import FullCalendar from './components/FullCalendar.vue'
 
 module.exports = {
     install: function (Vue, options) {
