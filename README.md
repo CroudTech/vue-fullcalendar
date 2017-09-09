@@ -1,4 +1,6 @@
 # vue-fullcalendar
+[![npm version](https://badge.fury.io/js/vue-full-calendar.svg)](https://badge.fury.io/js/vue-full-calendar)
+
 
 ## Installation
 ```
