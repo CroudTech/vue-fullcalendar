@@ -1,6 +1,6 @@
 import FullCalendar from './components/FullCalendar.vue'
 
-module.exports = {
+export default {
     install: function (Vue, options) {
         Vue.component('full-calendar', FullCalendar);
     },
