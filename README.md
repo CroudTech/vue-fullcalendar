@@ -14,7 +14,8 @@ npm install --save vue-full-calendar@0.0.3
 and use in your project
 
 ```js
-Vue.use(require('vue-full-calendar'))
+import FullCalendar from 'vue-full-calendar'
+Vue.use(FullCalendar)
 ```
 ### jQuery
 
