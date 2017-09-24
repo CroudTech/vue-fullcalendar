@@ -54,6 +54,12 @@
                 },
             },
 
+            timeFormat: {
+                default() {
+                    return 'HH:mm'
+                },
+            },
+
             sync: {
                 default() {
                     return false
@@ -78,7 +84,7 @@
                     selectable: this.selectable,
                     selectHelper: this.selectHelper,
                     aspectRatio: 2,
-                    timeFormat: 'HH:mm',
+                    timeFormat: this.timeFormat,
                     events: this.events,
                     eventSources: this.eventSources,
 
