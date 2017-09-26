@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/CroudSupport/vue-fullcalendar#readme",
   "dependencies": {
-    "fullcalendar": "^3.3.0",
+    "fullcalendar": "~3.4.0",
     "lodash.defaultsdeep": "^4.6.0"
   }
 }
