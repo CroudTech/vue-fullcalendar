@@ -164,7 +164,7 @@
 
         methods: {
             fireMethod(...options) {
-                $(this.$el).fullCalendar(...options)
+                return $(this.$el).fullCalendar(...options)
             },
         },
 
