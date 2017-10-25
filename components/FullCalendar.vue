@@ -87,16 +87,16 @@
                     }
                 },
 
-                eventClick(event) {
-                    self.$dispatch('event-selected', event)
+                eventClick(...args) {
+                    self.$dispatch('event-selected', ...args)
                 },
 
-                eventDrop(event) {
-                    self.$dispatch('event-drop', event)
+                eventDrop(...args) {
+                    self.$dispatch('event-drop', ...args)
                 },
 
-                eventResize(event) {
-                    self.$dispatch('event-resize', event)
+                eventResize(...args) {
+                    self.$dispatch('event-resize', ...args)
                 },
 
                 select(start, end, jsEvent) {
