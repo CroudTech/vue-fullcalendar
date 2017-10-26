@@ -110,6 +110,11 @@
                     dayClick(...args){
                         self.$emit('day-click', ...args)
                     },
+                    
+                    viewRender: function (...args) {
+                        self.$emit('view-render', ...args)
+                    },
+                    
                     select(start, end, jsEvent, view, resource) {
                         self.$emit('event-created', {
                             start,
