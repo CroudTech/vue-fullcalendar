@@ -5,6 +5,7 @@
   "main": "index.js",
   "browserify": {
     "transform": [
+      "babelify",
       "vueify"
     ]
   },
