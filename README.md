@@ -105,6 +105,28 @@ More event options can be found at http://fullcalendar.io/docs/event_data/Event_
 </script>
 ```
 
+## Custom Config
+You can pass any custom [options](https://fullcalendar.io/docs/) through to fullcalendar by using the `config` prop, this includes extra event handlers.
+```html
+<full-calendar :events="events" :config="config" />
+...
+<script>
+...
+  data() {
+    return {
+      events: [],
+      config: {
+        weekends: false,
+        drop(...args) {
+          //handle drop logic in parent
+        },
+      },
+    }
+  },
+...
+</script>
+```
+
 ## Further Props
 You can edit the look and feel of fullcalendar by passing through extra props. These all have sensible defaults
 
