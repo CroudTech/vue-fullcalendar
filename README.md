@@ -137,6 +137,31 @@ You can edit the look and feel of fullcalendar by passing through extra props. T
 - __selectHelper__ - [true] - [docs](http://fullcalendar.io/docs/selection/selectHelper/)
 - __config__ - [true] - Pass your own custom config straight through to fullcalendar
 
+## Methods 
+Sometimes you may need to manipulate the Calendar from your parent component, you can use `fireMethod` for this. This works with anything in the [Fullcalendar docs](https://fullcalendar.io/docs/) suffixed with `(method)` and it will dynamically handle as many arguments as needed.
+```html
+<full-calendar :events="events" :ref="calendar" />
+...
+<script>
+...
+  data() {
+    return {
+      events: [],
+    }
+  },
+  
+  methods: {
+    next() {
+      this.$refs.calendar.fireMethod('next')
+    },
+    changeView(view) {
+      this.$refs.calendar.fireMethod('changeView', view)
+    },
+  },
+...
+</script>
+```
+
 ## Events and Hooks
 
 ### Emitted
