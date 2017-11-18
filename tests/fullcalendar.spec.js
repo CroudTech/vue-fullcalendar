@@ -6,7 +6,6 @@ Vue.use(VueFullCalendar)
 
 window.jQuery = window.$ = require('jquery')
 
-
 const events = jest.fn()
 const vm = new Vue({
     template: '<full-calendar ref="calendar" :event-sources="eventSources" :config="config"></full-calendar>',
