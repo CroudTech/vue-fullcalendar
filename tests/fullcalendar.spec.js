@@ -42,16 +42,15 @@ describe('VueFullCalendar', () => {
         })
     })
 
-    describe('handle eventSources', () => {
+    xdescribe('handle eventSources', () => {
         it('should call callback', () => {
             expect(events).toBeCalled()
         })
 
-        // it('should add events to calendar', () => {
-        //     console.log(vm.$refs.calendar.$el.querySelector('.fc-event'))
-        //     expect(vm.$refs.calendar.$el.querySelector('.fc-event').length).toEqual(1)
-           
-        // })
+        it('should add events to calendar', () => {
+            console.log(vm.$refs.calendar.$el.querySelector('.fc-event'))
+            expect(vm.$refs.calendar.$el.querySelector('.fc-event').length).toEqual(1) 
+        })
     })
 
     describe('handle firemethod', () => {
