@@ -42,12 +42,13 @@ describe('VueFullCalendar', () => {
         })
     })
 
-    xdescribe('handle eventSources', () => {
+    describe('handle eventSources', () => {
         it('should call callback', () => {
+            vm.$refs.calendar.fireMethod('fetchEvents', moment(), moment().add(7, 'd'))
             expect(events).toBeCalled()
         })
 
-        it('should add events to calendar', () => {
+        xit('should add events to calendar', () => {
             console.log(vm.$refs.calendar.$el.querySelector('.fc-event'))
             expect(vm.$refs.calendar.$el.querySelector('.fc-event').length).toEqual(1) 
         })
