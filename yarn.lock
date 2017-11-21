@@ -1406,9 +1406,9 @@ fstream@^1.0.0, fstream@^1.0.10, fstream@^1.0.2:
     mkdirp ">=0.5 0"
     rimraf "2"
 
-fullcalendar@^3.4.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/fullcalendar/-/fullcalendar-3.7.0.tgz#74309943790a0085647ef7671c81c852f68b4a28"
+fullcalendar@~3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/fullcalendar/-/fullcalendar-3.4.0.tgz#34dabff2abe5e85f70025c789a5b9dc3ea4c4762"
   dependencies:
     jquery "2 - 3"
     moment "^2.9.0"

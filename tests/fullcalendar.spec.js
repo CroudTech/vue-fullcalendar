@@ -48,9 +48,8 @@ describe('VueFullCalendar', () => {
             expect(events).toBeCalled()
         })
 
-        xit('should add events to calendar', () => {
-            console.log(vm.$refs.calendar.$el.querySelector('.fc-event'))
-            expect(vm.$refs.calendar.$el.querySelector('.fc-event').length).toEqual(1) 
+        it('should add events to calendar', () => {
+            expect(vm.$refs.calendar.fireMethod('clientEvents').length).toEqual(1)            
         })
     })
 
