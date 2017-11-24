@@ -12,12 +12,26 @@ Or for Vue 1.x users
 npm install --save vue-full-calendar@0.0.3
 ```
 
-and use in your project
+Installing the plugin will globally add the `full-calendar` component to your project.
 
 ```js
+//main.js
 import FullCalendar from 'vue-full-calendar'
 Vue.use(FullCalendar)
 ```
+
+But you can also import the standalone component to add locally or for more complex installations.
+
+```js
+// foo.vue
+import { FullCalendar } from 'vue-full-calendar'
+export default {
+  components: {
+    FullCalendar,
+  },
+}
+```
+
 ### jQuery
 
 Please note that fullcalendar depends on jQuery, so it will need to be included in your project for this vue plugin to work
