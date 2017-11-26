@@ -2,7 +2,10 @@ import Vue from 'vue/dist/vue'
 import VueFullCalendar from '../index'
 import moment from 'moment'
 
+import { FullCalendar } from '../index'
+
 Vue.use(VueFullCalendar)
+Vue.component('cal', FullCalendar)
 
 window.jQuery = window.$ = require('jquery')
 
@@ -39,6 +42,11 @@ describe('VueFullCalendar', () => {
     describe('installing plugin', () => {
         it('load component', () => {
             expect(typeof Vue.options.components['full-calendar']).toEqual('function')
+        })
+
+        it('export standalone component', () => {
+            expect(typeof Vue.options.components['cal']).toEqual('function')
+            expect(Vue.options.components['cal']).toEqual(Vue.options.components['full-calendar'])
         })
     })
 
