@@ -1,5 +1,6 @@
 # vue-fullcalendar
 [![npm version](https://badge.fury.io/js/vue-full-calendar.svg)](https://badge.fury.io/js/vue-full-calendar)
+[![Build Status](https://travis-ci.org/CroudSupport/vue-fullcalendar.svg?branch=master)](https://travis-ci.org/CroudSupport/vue-fullcalendar)
 
 
 ## Installation
@@ -11,12 +12,26 @@ Or for Vue 1.x users
 npm install --save vue-full-calendar@0.0.3
 ```
 
-and use in your project
+Installing the plugin will globally add the `full-calendar` component to your project.
 
 ```js
+//main.js
 import FullCalendar from 'vue-full-calendar'
 Vue.use(FullCalendar)
 ```
+
+But you can also import the standalone component to add locally or for more complex installations.
+
+```js
+// foo.vue
+import { FullCalendar } from 'vue-full-calendar'
+export default {
+  components: {
+    FullCalendar,
+  },
+}
+```
+
 ### jQuery
 
 Please note that fullcalendar depends on jQuery, so it will need to be included in your project for this vue plugin to work
@@ -105,6 +120,28 @@ More event options can be found at http://fullcalendar.io/docs/event_data/Event_
 </script>
 ```
 
+## Custom Config
+You can pass any custom [options](https://fullcalendar.io/docs/) through to fullcalendar by using the `config` prop, this includes extra event handlers.
+```html
+<full-calendar :events="events" :config="config" />
+...
+<script>
+...
+  data() {
+    return {
+      events: [],
+      config: {
+        weekends: false,
+        drop(...args) {
+          //handle drop logic in parent
+        },
+      },
+    }
+  },
+...
+</script>
+```
+
 ## Further Props
 You can edit the look and feel of fullcalendar by passing through extra props. These all have sensible defaults
 
@@ -114,6 +151,31 @@ You can edit the look and feel of fullcalendar by passing through extra props. T
 - __selectable__ - [true] -  [docs](http://fullcalendar.io/docs/selection/selectable/)
 - __selectHelper__ - [true] - [docs](http://fullcalendar.io/docs/selection/selectHelper/)
 - __config__ - [true] - Pass your own custom config straight through to fullcalendar
+
+## Methods 
+Sometimes you may need to manipulate the Calendar from your parent component, you can use `fireMethod` for this. This works with anything in the [Fullcalendar docs](https://fullcalendar.io/docs/) suffixed with `(method)` and it will dynamically handle as many arguments as needed.
+```html
+<full-calendar :events="events" :ref="calendar" />
+...
+<script>
+...
+  data() {
+    return {
+      events: [],
+    }
+  },
+  
+  methods: {
+    next() {
+      this.$refs.calendar.fireMethod('next')
+    },
+    changeView(view) {
+      this.$refs.calendar.fireMethod('changeView', view)
+    },
+  },
+...
+</script>
+```
 
 ## Events and Hooks
 

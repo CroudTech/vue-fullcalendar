@@ -5,3 +5,4 @@ export default {
         Vue.component('full-calendar', FullCalendar);
     },
 }
+export { FullCalendar }
