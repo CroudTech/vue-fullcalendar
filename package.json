@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/CroudSupport/vue-fullcalendar#readme",
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "fullcalendar": "^3.4.0",
     "lodash.defaultsdeep": "^4.6.0"
   },
