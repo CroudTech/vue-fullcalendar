@@ -49,8 +49,13 @@ As of version 2.0, we have removed the automatic import of the fullcalendar.css,
 ```
 
 ## Example App
-I have created a simple Vue 2 webpack application to as an example/playground
+I have created a simple Vue 2 webpack application as an example/playground
 https://github.com/BrockReece/vue-fullcalendar-example
+
+or try out this [Code Sandbox](https://codesandbox.io/s/5xlp873rkl)
+
+### Scheduler
+For those wanting to use the scheduler plugin, this [Code Sandbox](https://codesandbox.io/s/qlp8jvko3j) shows you a full working example. 
 
 ## Basic Usage
 
