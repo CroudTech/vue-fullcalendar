@@ -160,7 +160,7 @@ You can edit the look and feel of fullcalendar by passing through extra props. T
 ## Methods 
 Sometimes you may need to manipulate the Calendar from your parent component, you can use `fireMethod` for this. This works with anything in the [Fullcalendar docs](https://fullcalendar.io/docs/) suffixed with `(method)` and it will dynamically handle as many arguments as needed.
 ```html
-<full-calendar :events="events" :ref="calendar" />
+<full-calendar :events="events" ref="calendar" />
 ...
 <script>
 ...
