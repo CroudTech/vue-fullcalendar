@@ -147,6 +147,28 @@ You can pass any custom [options](https://fullcalendar.io/docs/) through to full
 </script>
 ```
 
+## Locale
+You can set the language of your calendar by importing the corresponding locale file and setting the `locale` key in the config prop. For example, to set up the Calendar in French...
+
+```html
+<full-calendar :events="events" :config="config" />
+...
+<script>
+import 'fullcalendar/dist/locale/fr'
+...
+  data() {
+    return {
+      events: [],
+      config: {
+        locale: 'fr',
+      },
+    }
+  },
+...
+</script>
+```
+[Code Sandbox](https://codesandbox.io/s/8yl1xwk388)
+
 ## Further Props
 You can edit the look and feel of fullcalendar by passing through extra props. These all have sensible defaults
 
