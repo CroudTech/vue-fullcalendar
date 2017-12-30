@@ -169,6 +169,8 @@ import 'fullcalendar/dist/locale/fr'
 ```
 [Code Sandbox](https://codesandbox.io/s/8yl1xwk388)
 
+*Note: You won't need to set the locale config key if your app only imports a single locale file*
+
 ## Further Props
 You can edit the look and feel of fullcalendar by passing through extra props. These all have sensible defaults
 
