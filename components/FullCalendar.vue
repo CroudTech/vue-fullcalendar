@@ -154,7 +154,7 @@
             })
 
             this.$on('rebuild-sources', () => {
-                $(this.$el).fullCalendar('removeEvents')
+                $(this.$el).fullCalendar('removeEventSources')
                 this.eventSources.map(event => {
                     $(this.$el).fullCalendar('addEventSource', event)
                 })
