@@ -34,11 +34,7 @@ export default {
 
 ### jQuery
 
-Please note that fullcalendar depends on jQuery, so it will need to be included in your project for this vue plugin to work
-
-```js
-window.jQuery = window.$ = require('jquery')
-```
+Please note that fullcalendar depends on jQuery, but you won't need to add it to your project manually, fullcalendar will handle this for you automatically if jQuery is not detected.
 
 ### CSS
 As of version 2.0, we have removed the automatic import of the fullcalendar.css, you will need to explicitly import this css file in your project.
