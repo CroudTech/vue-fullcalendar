@@ -1,6 +1,6 @@
 {
   "name": "vue-full-calendar",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "description": "FullCalendar wrapper for vue",
   "main": "index.js",
   "browserify": {
