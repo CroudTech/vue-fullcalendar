@@ -104,6 +104,10 @@
                         self.$emit('event-drop', ...args)
                     },
 
+                    eventReceive(...args) {
+                        self.$emit('event-receive', ...args)
+                    },
+
                     eventResize(...args) {
                         self.$emit('event-resize', ...args)
                     },
