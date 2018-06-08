@@ -43,6 +43,7 @@
     "jest-vue": "^0.8.2",
     "jquery": "^3.2.1",
     "vue": "^2.5.4",
+    "vue-hot-reload-api": "^2.3.0",
     "vue-template-compiler": "^2.5.4"
   },
   "jest": {
