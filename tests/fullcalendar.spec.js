@@ -1,8 +1,8 @@
 import Vue from 'vue/dist/vue'
-import VueFullCalendar from '../index'
+import VueFullCalendar from '../src/index'
 import moment from 'moment'
 
-import { FullCalendar } from '../index'
+import { FullCalendar } from '../src/index'
 
 Vue.use(VueFullCalendar)
 Vue.component('cal', FullCalendar)
