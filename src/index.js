@@ -1,4 +1,4 @@
-import FullCalendar from './components/FullCalendar.vue'
+import FullCalendar from '../components/FullCalendar.vue'
 
 export default {
     install: function (Vue, options) {

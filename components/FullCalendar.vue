@@ -4,8 +4,7 @@
 
 <script>
     import defaultsDeep from 'lodash.defaultsdeep'
-    import 'fullcalendar'
-    import $ from 'jquery'
+    const FullCalendar = require('fullcalendar/dist/fullcalendar')
 
     export default {
         props: {
@@ -69,6 +68,12 @@
             },
         },
 
+        data() {
+            return {
+                calendar: null,
+            }
+        },
+
         computed: {
             defaultConfig() {
                 const self = this
@@ -85,14 +90,14 @@
 
                     eventRender(...args) {
                         if (this.sync) {
-                            self.events = cal.fullCalendar('clientEvents')
+                            self.events = self.calendar.clientEvents()
                         }
                         self.$emit('event-render', ...args)
                     },
 
                     eventDestroy(event) {
                         if (this.sync) {
-                            self.events = cal.fullCalendar('clientEvents')
+                            self.events = self.calendar.clientEvents()
                         }
                     },
 
@@ -129,47 +134,48 @@
         },
 
         mounted() {
-            const cal = $(this.$el),
+            const cal = this.$el,
                 self = this
 
             this.$on('remove-event', (event) => {
                 if(event && event.hasOwnProperty('id')){
-                    $(this.$el).fullCalendar('removeEvents', event.id);
+                    this.calendar.removeEvents(event.id);
                 }else{
-                    $(this.$el).fullCalendar('removeEvents', event);
+                    this.calendar.removeEvents(event);
                 }
             })
 
             this.$on('rerender-events', () => {
-                $(this.$el).fullCalendar('rerenderEvents')
+                this.calendar.rerenderEvents()
             })
 
             this.$on('refetch-events', () => {
-                $(this.$el).fullCalendar('refetchEvents')
+                this.calendar.refetchEvents()
             })
 
             this.$on('render-event', (event) => {
-                $(this.$el).fullCalendar('renderEvent', event)
+                this.calendar.renderEvent(event)
             })
 
             this.$on('reload-events', () => {
-                $(this.$el).fullCalendar('removeEvents')
-                $(this.$el).fullCalendar('addEventSource', this.events)
+                this.calendar.removeEvents()
+                this.calendar.addEventSource(this.events)
             })
 
             this.$on('rebuild-sources', () => {
-                $(this.$el).fullCalendar('removeEventSources')
+                this.calendar.removeEventSources()
                 this.eventSources.map(event => {
-                    $(this.$el).fullCalendar('addEventSource', event)
+                    this.calendar.addEventSource(event)
                 })
             })
 
-            cal.fullCalendar(defaultsDeep(this.config, this.defaultConfig))
+            this.calendar = new FullCalendar.Calendar(cal, defaultsDeep(this.config, this.defaultConfig))
+            this.calendar.render()
         },
 
         methods: {
             fireMethod(...options) {
-                return $(this.$el).fullCalendar(...options)
+                return this.calendar[options.shift()](...options)
             },
         },
 
@@ -177,8 +183,8 @@
             events: {
                 deep: true,
                 handler(val) {
-                    $(this.$el).fullCalendar('removeEvents')
-                    $(this.$el).fullCalendar('addEventSource', this.events)
+                    this.calendar.removeEvents()
+                    this.calendar.addEventSource(this.events)
                 },
             },
             eventSources: {
