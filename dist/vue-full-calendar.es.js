@@ -1,9 +1,9 @@
 import _toConsumableArray from 'babel-runtime/helpers/toConsumableArray';
 import defaultsDeep from 'lodash.defaultsdeep';
-import 'fullcalendar';
-import $ from 'jquery';
 
-var FullCalendar = { render: function render() {
+var FullCalendar = require('fullcalendar/dist/fullcalendar');
+
+var FullCalendar$1 = { render: function render() {
         var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { ref: "calendar", attrs: { "id": "calendar" } });
     }, staticRenderFns: [],
     props: {
@@ -67,6 +67,13 @@ var FullCalendar = { render: function render() {
         }
     },
 
+    data: function data() {
+        return {
+            calendar: null
+        };
+    },
+
+
     computed: {
         defaultConfig: function defaultConfig() {
             var self = this;
@@ -83,7 +90,7 @@ var FullCalendar = { render: function render() {
 
                 eventRender: function eventRender() {
                     if (this.sync) {
-                        self.events = cal.fullCalendar('clientEvents');
+                        self.events = self.calendar.clientEvents();
                     }
 
                     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -94,7 +101,7 @@ var FullCalendar = { render: function render() {
                 },
                 eventDestroy: function eventDestroy(event) {
                     if (this.sync) {
-                        self.events = cal.fullCalendar('clientEvents');
+                        self.events = self.calendar.clientEvents();
                     }
                 },
                 eventClick: function eventClick() {
@@ -148,49 +155,54 @@ var FullCalendar = { render: function render() {
     mounted: function mounted() {
         var _this = this;
 
-        var cal = $(this.$el);
+        var cal = this.$el;
 
         this.$on('remove-event', function (event) {
             if (event && event.hasOwnProperty('id')) {
-                $(_this.$el).fullCalendar('removeEvents', event.id);
+                _this.calendar.removeEvents(event.id);
             } else {
-                $(_this.$el).fullCalendar('removeEvents', event);
+                _this.calendar.removeEvents(event);
             }
         });
 
         this.$on('rerender-events', function () {
-            $(_this.$el).fullCalendar('rerenderEvents');
+            _this.calendar.rerenderEvents();
         });
 
         this.$on('refetch-events', function () {
-            $(_this.$el).fullCalendar('refetchEvents');
+            _this.calendar.refetchEvents();
         });
 
         this.$on('render-event', function (event) {
-            $(_this.$el).fullCalendar('renderEvent', event);
+            _this.calendar.renderEvent(event);
         });
 
         this.$on('reload-events', function () {
-            $(_this.$el).fullCalendar('removeEvents');
-            $(_this.$el).fullCalendar('addEventSource', _this.events);
+            _this.calendar.removeEvents();
+            _this.calendar.addEventSource(_this.events);
         });
 
         this.$on('rebuild-sources', function () {
-            $(_this.$el).fullCalendar('removeEventSources');
+            _this.calendar.removeEventSources();
             _this.eventSources.map(function (event) {
-                $(_this.$el).fullCalendar('addEventSource', event);
+                _this.calendar.addEventSource(event);
             });
         });
 
-        cal.fullCalendar(defaultsDeep(this.config, this.defaultConfig));
+        this.calendar = new FullCalendar.Calendar(cal, defaultsDeep(this.config, this.defaultConfig));
+        this.calendar.render();
     },
 
 
     methods: {
         fireMethod: function fireMethod() {
-            var _$;
+            var _calendar;
 
-            return (_$ = $(this.$el)).fullCalendar.apply(_$, arguments);
+            for (var _len7 = arguments.length, options = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+                options[_key7] = arguments[_key7];
+            }
+
+            return (_calendar = this.calendar)[options.shift()].apply(_calendar, _toConsumableArray(options));
         }
     },
 
@@ -198,8 +210,8 @@ var FullCalendar = { render: function render() {
         events: {
             deep: true,
             handler: function handler(val) {
-                $(this.$el).fullCalendar('removeEvents');
-                $(this.$el).fullCalendar('addEventSource', this.events);
+                this.calendar.removeEvents();
+                this.calendar.addEventSource(this.events);
             }
         },
         eventSources: {
@@ -222,9 +234,9 @@ var FullCalendar = { render: function render() {
 
 var index = {
     install: function install(Vue, options) {
-        Vue.component('full-calendar', FullCalendar);
+        Vue.component('full-calendar', FullCalendar$1);
     }
 };
 
-export { FullCalendar };
+export { FullCalendar$1 as FullCalendar };
 export default index;
