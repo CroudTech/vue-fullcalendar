@@ -1,6 +1,6 @@
 {
   "name": "vue-full-calendar",
-  "version": "2.7.0-0",
+  "version": "2.7.0-1",
   "description": "FullCalendar wrapper for vue",
   "main": "dist/vue-full-calendar.js",
   "module": "dist/vue-full-calendar.es.js",
