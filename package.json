@@ -3,6 +3,7 @@
   "version": "2.7.0-0",
   "description": "FullCalendar wrapper for vue",
   "main": "dist/vue-full-calendar.js",
+  "module": "dist/vue-full-calendar.es.js",
   "browserify": {
     "transform": [
       "babelify",
