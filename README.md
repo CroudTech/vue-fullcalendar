@@ -38,10 +38,8 @@ Please note that fullcalendar depends on jQuery, but you won't need to add it to
 
 ### CSS
 As of version 2.0, we have removed the automatic import of the fullcalendar.css, you will need to explicitly import this css file in your project.
-```html
-<style>
-    @import '~fullcalendar/dist/fullcalendar.css';
-</style>
+```js
+import 'fullcalendar/dist/fullcalendar.css'
 ```
 
 ## Example App
