@@ -89,6 +89,13 @@
                         }
                         self.$emit('event-render', ...args)
                     },
+                    
+                    viewRender(...args) {
+                        if (this.sync) {
+                            self.events = cal.fullCalendar('clientEvents')
+                        }
+                        self.$emit('view-render', ...args)
+                    },
 
                     eventDestroy(event) {
                         if (this.sync) {
