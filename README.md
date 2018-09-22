@@ -209,6 +209,7 @@ Sometimes you may need to manipulate the Calendar from your parent component, yo
 - __event-created(event)__ - Triggered on select()
 - __event-receive(event)__ - Triggered on eventReceive()
 - __event-render(event)__ - Triggered on eventRender()
+- __view-render(event)__ - Triggered on viewRender()
 - __day-click(date, jsEvent, view)__ - Triggered on dayClick()
 
 You can listen for these events using the following markup
