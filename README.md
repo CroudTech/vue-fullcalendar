@@ -204,6 +204,8 @@ Sometimes you may need to manipulate the Calendar from your parent component, yo
 
 ### Emitted
 - __event-selected(event, jsEvent, view)__ - Triggered on eventClick()
+- __event-mouseover(event, jsEvent, view)__ - Triggered on eventMouseover()
+- __event-mouseout(event, jsEvent, view)__ - Triggered on eventMouseout()
 - __event-drop(event)__ - Triggered on eventDrop()
 - __event-resize(event)__ - Triggered on eventResize()
 - __event-created(event)__ - Triggered on select()
