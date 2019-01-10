@@ -121,13 +121,7 @@
                         self.$emit('date-click', ...args)
                     },
                     select(info) {
-                        self.$emit('event-created', {
-                            start: info.start,
-                            end: info.end,
-                            allDay: !info.start.hasTime() && !info.end.hasTime(),
-                            view: info.view,
-                            resource: info.resource
-                        })
+                        self.$emit('event-created', info)
                     }
                 }
             },
