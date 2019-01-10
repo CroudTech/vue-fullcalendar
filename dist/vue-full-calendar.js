@@ -3071,13 +3071,7 @@ var FullCalendar$1 = { render: function render() {
                     self.$emit.apply(self, ['date-click'].concat(_toConsumableArray(args)));
                 },
                 select: function select(info) {
-                    self.$emit('event-created', {
-                        start: info.start,
-                        end: info.end,
-                        allDay: !info.start.hasTime() && !info.end.hasTime(),
-                        view: info.view,
-                        resource: info.resource
-                    });
+                    self.$emit('event-created', info);
                 }
             };
         }
