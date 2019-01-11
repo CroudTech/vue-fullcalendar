@@ -3083,7 +3083,7 @@ var FullCalendar$1 = { render: function render() {
         var cal = this.$el;
 
         this.$on('remove-event', function (event) {
-            if (event && event.hasOwnProperty('id')) {
+            if (event && event.id) {
                 var eventObj = _this.calendar.getEventById(event.id);
                 eventObj.remove();
             }

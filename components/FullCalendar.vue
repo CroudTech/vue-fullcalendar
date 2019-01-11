@@ -131,7 +131,7 @@
             const cal = this.$el
 
             this.$on('remove-event', (event) => {
-                if(event && event.hasOwnProperty('id')){
+                if(event && event.id){
                     let eventObj = this.calendar.getEventById(event.id);
                     eventObj.remove();
                 }
@@ -173,8 +173,8 @@
             removeEvents() {
                 this.calendar.batchRendering(() => {
                     this.events.forEach(event => {
-                        let eventObj = this.calendar.getEventById(event.id);
-                        eventObj.remove();
+                        let eventObj = this.calendar.getEventById(event.id)
+                        eventObj.remove()
                     });
                 });
             }
