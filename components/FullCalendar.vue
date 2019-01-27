@@ -174,7 +174,9 @@
                 this.calendar.batchRendering(() => {
                     this.events.forEach(event => {
                         let eventObj = this.calendar.getEventById(event.id)
-                        eventObj.remove()
+                        if (eventObj) {
+                            eventObj.remove()
+                        }
                     });
                 });
             }
