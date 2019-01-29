@@ -32,7 +32,7 @@
                 },
             },
 
-            selectHelper: {
+            selectMirror: {
                 default() {
                     return true
                 },
@@ -82,7 +82,7 @@
                     defaultView: this.defaultView,
                     editable: this.editable,
                     selectable: this.selectable,
-                    selectHelper: this.selectHelper,
+                    selectMirror: this.selectMirror,
                     aspectRatio: 2,
                     timeFormat: 'HH:mm',
                     events: this.events,
@@ -90,14 +90,14 @@
 
                     eventRender(...args) {
                         if (this.sync) {
-                            self.events = self.calendar.clientEvents()
+                            self.events = self.calendar.getEvents()
                         }
                         self.$emit('event-render', ...args)
                     },
 
                     eventDestroy(event) {
                         if (this.sync) {
-                            self.events = self.calendar.clientEvents()
+                            self.events = self.calendar.getEvents()
                         }
                     },
 
@@ -117,31 +117,23 @@
                         self.$emit('event-resize', ...args)
                     },
 
-                    dayClick(...args){
-                        self.$emit('day-click', ...args)
+                    dateClick(...args){
+                        self.$emit('date-click', ...args)
                     },
-                    select(start, end, jsEvent, view, resource) {
-                        self.$emit('event-created', {
-                            start,
-                            end,
-                            allDay: !start.hasTime() && !end.hasTime(),
-                            view,
-                            resource
-                        })
+                    select(info) {
+                        self.$emit('event-created', info)
                     }
                 }
             },
         },
 
         mounted() {
-            const cal = this.$el,
-                self = this
+            const cal = this.$el
 
             this.$on('remove-event', (event) => {
-                if(event && event.hasOwnProperty('id')){
-                    this.calendar.removeEvents(event.id);
-                }else{
-                    this.calendar.removeEvents(event);
+                if(event && event.id){
+                    let eventObj = this.calendar.getEventById(event.id);
+                    eventObj.remove();
                 }
             })
 
@@ -153,17 +145,18 @@
                 this.calendar.refetchEvents()
             })
 
-            this.$on('render-event', (event) => {
-                this.calendar.renderEvent(event)
+            this.$on('add-event', (event) => {
+                this.calendar.addEvent(event)
             })
 
-            this.$on('reload-events', () => {
-                this.calendar.removeEvents()
-                this.calendar.addEventSource(this.events)
+            this.$on('reload-events', (events) => {
+                events = events || this.events
+                this.removeEvents();
+                this.calendar.addEventSource(events)
             })
 
             this.$on('rebuild-sources', () => {
-                this.calendar.removeEventSources()
+                this.removeEvents();
                 this.eventSources.map(event => {
                     this.calendar.addEventSource(event)
                 })
@@ -177,13 +170,23 @@
             fireMethod(...options) {
                 return this.calendar[options.shift()](...options)
             },
+            removeEvents() {
+                this.calendar.batchRendering(() => {
+                    this.events.forEach(event => {
+                        let eventObj = this.calendar.getEventById(event.id)
+                        if (eventObj) {
+                            eventObj.remove()
+                        }
+                    });
+                });
+            }
         },
 
         watch: {
             events: {
                 deep: true,
                 handler(val) {
-                    this.calendar.removeEvents()
+                    this.removeEvents()
                     this.calendar.addEventSource(this.events)
                 },
             },

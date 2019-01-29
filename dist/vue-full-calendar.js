@@ -57,7 +57,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 });
 
 var _core = createCommonjsModule(function (module) {
-var core = module.exports = { version: '2.5.1' };
+var core = module.exports = { version: '2.6.1' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 });
 
@@ -169,6 +169,11 @@ var _hide = _descriptors ? function (object, key, value) {
   return object;
 };
 
+var hasOwnProperty = {}.hasOwnProperty;
+var _has = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -186,7 +191,7 @@ var $export = function (type, name, source) {
   for (key in source) {
     // contains in native
     own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && key in exports) continue;
+    if (own && _has(exports, key)) continue;
     // export native or passed
     out = own ? target[key] : source[key];
     // prevent global pollution for namespaces
@@ -228,11 +233,6 @@ $export.R = 128; // real proto method for `library`
 var _export = $export;
 
 var _redefine = _hide;
-
-var hasOwnProperty = {}.hasOwnProperty;
-var _has = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
 
 var _iterators = {};
 
@@ -294,11 +294,18 @@ var _arrayIncludes = function (IS_INCLUDES) {
   };
 };
 
+var _shared = createCommonjsModule(function (module) {
 var SHARED = '__core-js_shared__';
 var store = _global[SHARED] || (_global[SHARED] = {});
-var _shared = function (key) {
-  return store[key] || (store[key] = {});
-};
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: _core.version,
+  mode: _library ? 'pure' : 'global',
+  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
+});
+});
 
 var id = 0;
 var px = Math.random();
@@ -481,7 +488,7 @@ var _iterDefine = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORC
       // Set @@toStringTag to native iterators
       _setToStringTag(IteratorPrototype, TAG, true);
       // fix for some old engines
-      if (!_library && !_has(IteratorPrototype, ITERATOR)) _hide(IteratorPrototype, ITERATOR, returnThis);
+      if (!_library && typeof IteratorPrototype[ITERATOR] != 'function') _hide(IteratorPrototype, ITERATOR, returnThis);
     }
   }
   // fix Array#{values, @@iterator}.name in V8 / FF
@@ -2955,7 +2962,7 @@ var FullCalendar$1 = { render: function render() {
             }
         },
 
-        selectHelper: {
+        selectMirror: {
             default: function _default() {
                 return true;
             }
@@ -3006,7 +3013,7 @@ var FullCalendar$1 = { render: function render() {
                 defaultView: this.defaultView,
                 editable: this.editable,
                 selectable: this.selectable,
-                selectHelper: this.selectHelper,
+                selectMirror: this.selectMirror,
                 aspectRatio: 2,
                 timeFormat: 'HH:mm',
                 events: this.events,
@@ -3014,7 +3021,7 @@ var FullCalendar$1 = { render: function render() {
 
                 eventRender: function eventRender() {
                     if (this.sync) {
-                        self.events = self.calendar.clientEvents();
+                        self.events = self.calendar.getEvents();
                     }
 
                     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -3025,7 +3032,7 @@ var FullCalendar$1 = { render: function render() {
                 },
                 eventDestroy: function eventDestroy(event) {
                     if (this.sync) {
-                        self.events = self.calendar.clientEvents();
+                        self.events = self.calendar.getEvents();
                     }
                 },
                 eventClick: function eventClick() {
@@ -3056,21 +3063,15 @@ var FullCalendar$1 = { render: function render() {
 
                     self.$emit.apply(self, ['event-resize'].concat(_toConsumableArray(args)));
                 },
-                dayClick: function dayClick() {
+                dateClick: function dateClick() {
                     for (var _len6 = arguments.length, args = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
                         args[_key6] = arguments[_key6];
                     }
 
-                    self.$emit.apply(self, ['day-click'].concat(_toConsumableArray(args)));
+                    self.$emit.apply(self, ['date-click'].concat(_toConsumableArray(args)));
                 },
-                select: function select(start, end, jsEvent, view, resource) {
-                    self.$emit('event-created', {
-                        start: start,
-                        end: end,
-                        allDay: !start.hasTime() && !end.hasTime(),
-                        view: view,
-                        resource: resource
-                    });
+                select: function select(info) {
+                    self.$emit('event-created', info);
                 }
             };
         }
@@ -3082,10 +3083,9 @@ var FullCalendar$1 = { render: function render() {
         var cal = this.$el;
 
         this.$on('remove-event', function (event) {
-            if (event && event.hasOwnProperty('id')) {
-                _this.calendar.removeEvents(event.id);
-            } else {
-                _this.calendar.removeEvents(event);
+            if (event && event.id) {
+                var eventObj = _this.calendar.getEventById(event.id);
+                eventObj.remove();
             }
         });
 
@@ -3097,17 +3097,18 @@ var FullCalendar$1 = { render: function render() {
             _this.calendar.refetchEvents();
         });
 
-        this.$on('render-event', function (event) {
-            _this.calendar.renderEvent(event);
+        this.$on('add-event', function (event) {
+            _this.calendar.addEvent(event);
         });
 
-        this.$on('reload-events', function () {
-            _this.calendar.removeEvents();
-            _this.calendar.addEventSource(_this.events);
+        this.$on('reload-events', function (events) {
+            events = events || _this.events;
+            _this.removeEvents();
+            _this.calendar.addEventSource(events);
         });
 
         this.$on('rebuild-sources', function () {
-            _this.calendar.removeEventSources();
+            _this.removeEvents();
             _this.eventSources.map(function (event) {
                 _this.calendar.addEventSource(event);
             });
@@ -3127,6 +3128,18 @@ var FullCalendar$1 = { render: function render() {
             }
 
             return (_calendar = this.calendar)[options.shift()].apply(_calendar, _toConsumableArray(options));
+        },
+        removeEvents: function removeEvents() {
+            var _this2 = this;
+
+            this.calendar.batchRendering(function () {
+                _this2.events.forEach(function (event) {
+                    var eventObj = _this2.calendar.getEventById(event.id);
+                    if (eventObj) {
+                        eventObj.remove();
+                    }
+                });
+            });
         }
     },
 
@@ -3134,7 +3147,7 @@ var FullCalendar$1 = { render: function render() {
         events: {
             deep: true,
             handler: function handler(val) {
-                this.calendar.removeEvents();
+                this.removeEvents();
                 this.calendar.addEventSource(this.events);
             }
         },
