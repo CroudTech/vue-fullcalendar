@@ -49,6 +49,18 @@
                 },
             },
 
+            buttonText: {
+                default() {
+                    return {
+                        today:    'today',
+                        month:    'month',
+                        week:     'week',
+                        day:      'day',
+                        list:     'list'
+                    }
+                },
+            },
+
             defaultView: {
                 default() {
                     return 'agendaWeek'
@@ -74,6 +86,7 @@
                 const self = this
                 return {
                     header: this.header,
+                    buttonText: this.buttonText,
                     defaultView: this.defaultView,
                     editable: this.editable,
                     selectable: this.selectable,
