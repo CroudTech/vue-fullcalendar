@@ -10,61 +10,53 @@
     export default {
         props: {
             events: {
-                default() {
-                    return []
+                default:function() {
+                    return [];
                 },
             },
 
             eventSources: {
-                default() {
-                    return []
+                default:function() {
+                    return [];
                 },
             },
 
             editable: {
-                default() {
-                    return true
-                },
+                default: true
             },
 
             selectable: {
-                default() {
-                    return true
-                },
+                default: true
             },
 
             selectHelper: {
-                default() {
-                    return true
-                },
+                default: true
             },
 
             header: {
-                default() {
+                default:function() {
                     return {
                         left:   'prev,next today',
                         center: 'title',
                         right:  'month,agendaWeek,agendaDay'
-                    }
+                    };
                 },
             },
 
             defaultView: {
-                default() {
+                default: function() {
                     return 'agendaWeek'
                 },
             },
 
             sync: {
-                default() {
-                    return false
-                }
+                default: false
             },
 
             config: {
                 type: Object,
-                default() {
-                    return {}
+                default:function() {
+                    return {};
                 },
             },
         },
