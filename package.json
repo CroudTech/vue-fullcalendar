@@ -30,8 +30,8 @@
   "homepage": "https://github.com/CroudSupport/vue-fullcalendar#readme",
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
-    "fullcalendar": "3.10.1",
-    "jquery": "3.4.1",
+    "fullcalendar": "^3.10.2",
+    "jquery": "^3.5.1",
     "lodash.defaultsdeep": "^4.6.0"
   },
   "devDependencies": {
